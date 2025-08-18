@@ -5,24 +5,42 @@ def escolha_de_calculadora():
 
     def matriz():
         print('Calculadora de matriz 3x3')
-        #linhas da matriz
-        l1 = []
-        l2 = []
-        l3 = []
-        #insere os números em cada linha
-        for n in range(3):
-            l1.append(float(input(f'digite o valor de a1,{n+1}: ')))
-        for n in range(3):
-            l2.append(float(input(f'digite o valor de a2,{n+1}: ')))
-        for n in range(3):
-            l3.append(float(input(f'digite o valor de a3,{n+1}: ')))
+        from numpy import linalg, array
+        def matrix3x3():
+            #linhas da matriz
+            l1 = []
+            l2 = []
+            l3 = []
 
-        #calcula a diagonal principal
-        d_prim = ((l1[0] * l2[1] * l3[2]) + (l1[1] * l2[2] * l3[0]) + (l1[2] * l2[0] * l3[1]))
-        #calcula a diagonal secundária
-        d_sec = ((l1[2] * l2[1] * l3[0]) + (l1[0] * l2[2] * l3[1]) + (l1[1] * l2[0] * l3[2]))
+            lines = [l1, l2, l3]
+            #insere os números em cada linha
+            for i, line in enumerate(lines):
+                numeros = input(f'Digite os números da linha {i + 1} separados por espaço: ').split()
+                line[:] = [int(n) for n in numeros]  # converte para int e substitui conteúdo
 
-        return (d_prim - d_sec) #retorna o determinante
+                lines = array(lines)
+                return(round(linalg.det(lines)))
+
+        def matrix4x4():
+            l1 = []
+            l2 = []
+            l3 = []
+            l4 = []
+            lines =[l1, l2, l3, l4]
+            for i, line in enumerate(lines):
+                numeros = input(f'Digite os números da linha {i + 1} separados por espaço: ').split()
+                line[:] = [int(n) for n in numeros]  # converte para int e substitui conteúdo
+
+                lines = array(lines)
+                return(round(linalg.det(lines)))
+
+        act = input('escolha matriz "3x3" ou "4x4": ')
+
+        if '3' in act:
+            return(matrix3x3())
+        if '4' in act:
+            return(matrix4x4())
+
 
     def trigonometria():
         print('calculadora de trigonometria!')
