@@ -44,7 +44,23 @@ def escolha_de_calculadora():
 
     def trigonometria():
         print('calculadora de trigonometria!')
-        # não fiz :D
+
+        op = input('digite os números correspondentes à "a" "b" e "c" separados por espaço: ').split()
+        a = float(op[0])
+        b = float(op[1])
+        c = float(op[2])
+
+        delt = b**2 - 4 * a * c
+
+        x1 = (-b + delt ** (1/2)) / 2 * a
+        x2 = (-b - delt ** (1/2)) / 2 * a
+
+        if delt == 0 :
+            return x1
+        elif delt < 0:
+            return 'delta negativo, número complexo !'
+        else:
+            return x1, x2
     
     def media():
         equation = input('escreva os números para fazer a média: ')
