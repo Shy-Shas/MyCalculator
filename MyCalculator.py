@@ -1,11 +1,17 @@
 def escolha_de_calculadora():
 
     def calculadora_normal():
-        return eval(input('digite a operação: ')) #analisa a equação e já entrega o resultado
+        while True:
+            op = input('digite a operação ou digite "voltar": ')
+            if 'v' in op:
+                break
+            else:
+                print(f'resultado: {eval(op)}')
+        return ''
+            
 
     def matriz():
         print('Calculadora de matriz 3x3')
-        from numpy import linalg, array
         def matrix3x3():
             #linhas da matriz
             l1 = []
@@ -15,11 +21,12 @@ def escolha_de_calculadora():
             lines = [l1, l2, l3]
             #insere os números em cada linha
             for i, line in enumerate(lines):
-                numeros = input(f'Digite os números da linha {i + 1} separados por espaço: ').split()
-                line[:] = [int(n) for n in numeros]  # converte para int e substitui conteúdo
-
-                lines = array(lines)
-                return(round(linalg.det(lines)))
+                for j in range(3):
+                    line.append(float(input(f'digite o número de A{i+1},{j+1}: ')))
+            
+            d_prim = ((l1[0] * l2[1] * l3[2]) + (l1[1]*l2[2]*l3[0]) + (l1[2]*l2[0]*l3[1]))
+            d_sec = ((l3[0] * l2[1] * l1[2]) + (l3[1]*l2[2]*l1[0]) + (l3[2]*l2[0]*l1[1]))
+            return(round(d_prim-d_sec))
 
         def matrix4x4():
             l1 = []
@@ -28,11 +35,7 @@ def escolha_de_calculadora():
             l4 = []
             lines =[l1, l2, l3, l4]
             for i, line in enumerate(lines):
-                numeros = input(f'Digite os números da linha {i + 1} separados por espaço: ').split()
-                line[:] = [int(n) for n in numeros]  # converte para int e substitui conteúdo
-
-                lines = array(lines)
-                return(round(linalg.det(lines)))
+                pass #a resolver
 
         act = input('escolha matriz "3x3" ou "4x4": ')
 
