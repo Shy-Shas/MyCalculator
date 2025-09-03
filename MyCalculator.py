@@ -1,11 +1,17 @@
 def escolha_de_calculadora():
 
     def calculadora_normal():
-        return eval(input('digite a operação: ')) #analisa a equação e já entrega o resultado
+        while True:
+            op = input('digite a operação ou digite "voltar": ')
+            if 'v' in op:
+                break
+            else:
+                print(f'resultado: {eval(op)}')
+        return ''
+            
 
     def matriz():
         print('Calculadora de matriz 3x3')
-        from numpy import linalg, array
         def matrix3x3():
             #linhas da matriz
             l1 = []
@@ -15,24 +21,51 @@ def escolha_de_calculadora():
             lines = [l1, l2, l3]
             #insere os números em cada linha
             for i, line in enumerate(lines):
-                numeros = input(f'Digite os números da linha {i + 1} separados por espaço: ').split()
-                line[:] = [int(n) for n in numeros]  # converte para int e substitui conteúdo
-
-                lines = array(lines)
-                return(round(linalg.det(lines)))
+                for j in range(3):
+                    line.append(float(input(f'digite o número de A{i+1},{j+1}: ')))
+            
+            d_prim = ((l1[0] * l2[1] * l3[2]) + (l1[1]*l2[2]*l3[0]) + (l1[2]*l2[0]*l3[1]))
+            d_sec = ((l3[0] * l2[1] * l1[2]) + (l3[1]*l2[2]*l1[0]) + (l3[2]*l2[0]*l1[1]))
+            return(round(d_prim-d_sec))
 
         def matrix4x4():
             l1 = []
             l2 = []
             l3 = []
             l4 = []
-            lines =[l1, l2, l3, l4]
-            for i, line in enumerate(lines):
-                numeros = input(f'Digite os números da linha {i + 1} separados por espaço: ').split()
-                line[:] = [int(n) for n in numeros]  # converte para int e substitui conteúdo
 
-                lines = array(lines)
-                return(round(linalg.det(lines)))
+            matrix = [l1, l2, l3, l4]
+            #insere os números em cada linha
+            for i, line in enumerate(matrix):
+                for j in range(4):
+                    line.append(float(input(f'digite o número de A{i+1},{j+1}: ')))
+
+            import numpy as np
+            if len(matrix) != 4 or any(len(row) != 4 for row in matrix):
+                raise ValueError("Matrix must be 4x4")
+
+            print(np.linalg.det(matrix))
+
+        def matrix_mult():
+            import numpy as np
+
+            matrixA = []
+            matrixB = []
+
+            print('primeira matriz')
+            for i in range(3):
+                row = [float(x) for x in input(f'digite a linha {i+1} separando por espaços: ').split()]
+                matrixA.append(row)
+
+            print('segunda matriz')
+            for i in range(3):
+                row = [float(x) for x in input(f'digite a linha {i+1} separando por espaços: ').split()]
+                matrixB.append(row)
+
+            A = np.array(matrixA)
+            B = np.array(matrixB)
+
+            return(np.dot(A, B))
 
         act = input('escolha matriz "3x3" ou "4x4": ')
 
@@ -40,7 +73,8 @@ def escolha_de_calculadora():
             return(matrix3x3())
         if '4' in act:
             return(matrix4x4())
-
+        if 'mul' in act:
+            return(matrix_mult())
 
     def trigonometria():
         print('calculadora de trigonometria!')
